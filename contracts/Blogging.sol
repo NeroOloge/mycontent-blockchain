@@ -215,6 +215,6 @@ contract Blogging {
         uint256 start = (page - 1) * limit;
         uint256 end = min(((page - 1) * limit) + limit, posts.length);
         Post[] memory paginatedPosts = posts.sliceArray(start, end);
-        return paginatedPosts;
+        return paginatedPosts.reverseArray();
     }
 }

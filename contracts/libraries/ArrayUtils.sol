@@ -87,23 +87,21 @@ library ArrayUtils {
     
     function sliceArray(string[] memory array, uint256 start, uint256 end) internal pure returns (string[] memory) {
         string[] memory slicedArray = new string[](end - start);
-        uint idx = 0;
         for (uint i = start; i < end; i++) {
-            slicedArray[idx] = array[i];
+            slicedArray[i] = array[start + i];
         }
         return slicedArray;
     }
 
     function sliceArray(Blogging.Post[] memory array, uint256 start, uint256 end) internal pure returns (Blogging.Post[] memory) {
         Blogging.Post[] memory slicedArray = new Blogging.Post[](end - start);
-        uint idx = 0;
         for (uint i = start; i < end; i++) {
-            slicedArray[idx] = array[i];
+            slicedArray[i] = array[start + i];
         }
         return slicedArray;
     }
 
-    function reverseArray(Blogging.Post[] storage array) internal view returns (Blogging.Post[] memory) {
+    function reverseArray(Blogging.Post[] memory array) internal pure returns (Blogging.Post[] memory) {
         Blogging.Post[] memory reversedArray = new Blogging.Post[](array.length);
         for (uint256 i = 0; i < array.length; i++) {
             reversedArray[array.length - 1 - i] = array[i];
