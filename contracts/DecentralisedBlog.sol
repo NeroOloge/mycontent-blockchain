@@ -3,7 +3,7 @@
 pragma solidity >=0.8.2 < 0.9.0;
 
 contract DecentralisedBlog {
-  event PostCreated(uint256 indexed postId, address indexed author, string cid);
+  event PostCreated(uint256 indexed postId, address indexed author, string cid, string title);
   event PostDeleted(uint256 indexed postId);
   event TagAdded(uint256 indexed postId, string tag);
   event CommentAdded(uint256 indexed commentId, uint256 indexed postId, address commenter, string cid);
@@ -71,7 +71,8 @@ contract DecentralisedBlog {
     _;
   }
 
-  function createPost(string calldata cid, string[] calldata tags, string[] calldata imageCIDs) external {
+  function createPost(string calldata cid, string[] calldata tags, 
+    string[] calldata imageCIDs, string calldata title) external {
     posts[nextPostId] = Post({
       id: nextPostId,
       author: msg.sender,
@@ -87,7 +88,7 @@ contract DecentralisedBlog {
     userPosts[msg.sender].push(nextPostId);
     reputation[msg.sender] += 10;
 
-    emit PostCreated(nextPostId, msg.sender, cid);
+    emit PostCreated(nextPostId, msg.sender, cid, title);
     for (uint i = 0; i < tags.length; i++) {
       emit TagAdded(nextPostId, tags[i]);
     }
@@ -148,7 +149,7 @@ contract DecentralisedBlog {
     likes[postId][msg.sender] = false;
     posts[postId].likes--;
 
-    emit PostLiked(postId, msg.sender);
+    emit PostUnliked(postId, msg.sender);
   }
 
   function bookmark(uint256 postId) external {
