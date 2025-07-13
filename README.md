@@ -1,13 +1,63 @@
-# Sample Hardhat Project
+# MyContent — Smart Contracts (Hardhat)
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This repository contains the smart contracts powering the **MyContent** decentralised blogging platform.
 
-Try running some of the following tasks:
+Published content is uploaded to IPFS, and its CID is stored on-chain via these contracts. Interactions like likes, bookmarks, and comments are also recorded on-chain to enable full decentralised publishing.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+---
+
+## 📄 Contracts
+
+- `DecentralisedBlog.sol` — Main contract handling:
+  - Post creation/deletion
+  - Comments and replies
+  - Likes and unlikes
+  - Bookmarks
+  - Tags
+  - Author profiles
+
+---
+
+## 🛠️ Stack
+
+- **Solidity (v0.8.x)**
+- **Hardhat** for development
+- **Chai + Ethers.js** for testing
+- **OpenZeppelin** for utilities
+- **The Graph** for indexing
+
+---
+
+## 🔧 Setup
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/NeroOloge/mycontent-blockchain
+cd mycontent-blockchain
 ```
+### 2. Install dependencies
+```bash
+npm install
+```
+### 3. Run tests
+```bash
+npx hardhat test
+```
+
+## 🔌 Deployment
+
+### Local Network
+```bash
+npx hardhat node
+npx hardhat run scripts/deploy.ts --network localhost
+```
+### Testnet (e.g., Ethereum Sepolia)
+Update hardhat.config.ts with your RPC and private key, then:
+```bash
+npx hardhat run scripts/deploy.ts --network sepolia
+```
+
+## 🔎 Indexing with The Graph
+Generate and deploy the subgraph from the [MyContent Subgraph](https://github.com/NeroOloge/mycontent-subgraph) repo.
+
+Use the subgraph endpoint in your frontend.
